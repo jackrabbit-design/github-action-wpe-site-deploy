@@ -64,7 +64,7 @@ ssh-add $WPE_SSHG_KEY_PRIVATE_PATH
 ssh-add -l
 
 echo "logging ..."
-#ssh git@git.wpengine.com info
+ssh git@git.wpengine.com info
 echo "--------------------------"
 
 # Lint before deploy
