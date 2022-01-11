@@ -35,7 +35,7 @@ echo "Deploying $GITHUB_REF to $WPE_ENV_NAME..."
 
 #Deploy Vars
 WPE_SSH_HOST="$WPE_ENV_NAME.ssh.wpengine.net"
-WPE_GIT_HOST="wpengine.com"
+WPE_GIT_HOST="git.wpengine.com"
 DIR_PATH="$INPUT_TPO_PATH"
 SRC_PATH="$INPUT_TPO_SRC_PATH"
  
@@ -64,7 +64,7 @@ ssh-add $WPE_SSHG_KEY_PRIVATE_PATH
 ssh-add -l
 
 echo "logging ..."
-ssh git@git.wpengine.com info
+#ssh git@git.wpengine.com info
 echo "--------------------------"
 
 # Lint before deploy
