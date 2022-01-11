@@ -44,6 +44,7 @@ SRC_PATH="$INPUT_TPO_SRC_PATH"
 WPE_SSH_USER="$WPE_ENV_NAME"@"$WPE_SSH_HOST"
 WPE_DESTINATION=wpe_gha+"$WPE_SSH_USER":sites/"$WPE_ENV_NAME"/"$DIR_PATH"
 WPE_GIT_DESTINATION="git@git.wpengine.com:production/$WPE_ENV_NAME.git"
+WPE_GIT_BRANCH_DESTINATION="refs/heads/master"
 
 # Setup our SSH Connection & use keys
 mkdir "$SSH_PATH"
@@ -90,8 +91,8 @@ if [ "${INPUT_WITH_GIT_PUSH^^}" == "TRUE" ]; then
     echo "Begin Git push into $WPE_GIT_DESTINATION"
     echo "With env    : $WPE_ENV_NAME"
     echo "From branch : $GITHUB_REF"
-    echo "To branch : $GITHUB_REF"
-    git push $WPE_ENV_NAME $GITHUB_REF:refs/heads/master --force --verbose
+    echo "To branch   : $WPE_GIT_BRANCH_DESTINATION"
+    git push $WPE_ENV_NAME $GITHUB_REF:$WPE_GIT_BRANCH_DESTINATION --force --verbose
     echo "Git push Successful! No errors detected!"
 else 
     echo "Skipping Git push."
