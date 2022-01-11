@@ -51,7 +51,7 @@ ssh-keyscan -t rsa "$WPE_SSH_HOST" >> "$KNOWN_HOSTS_PATH"
 ssh-keyscan -t rsa "$WPE_GIT_HOST" >> "$KNOWN_HOSTS_PATH"
 echo "Adding ssh agent ..."
 eval `ssh-agent -s`
-ssh-add $WPE_SSHG_KEY_PRIVATE_PATH
+ssh-add /home/runner/.ssh/github_actions
 
 #Copy Secret Keys to container
 echo "$INPUT_WPE_SSHG_KEY_PRIVATE" > "$WPE_SSHG_KEY_PRIVATE_PATH"
