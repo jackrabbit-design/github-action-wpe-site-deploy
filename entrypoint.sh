@@ -42,6 +42,7 @@ SRC_PATH="$INPUT_TPO_SRC_PATH"
 
 WPE_SSH_USER="$WPE_ENV_NAME"@"$WPE_SSH_HOST"
 WPE_DESTINATION=wpe_gha+"$WPE_SSH_USER":sites/"$WPE_ENV_NAME"/"$DIR_PATH"
+WPE_GIT_DESTINATION="git@git.wpengine.com:production/$WPE_ENV_NAME.git"
 
 # Setup our SSH Connection & use keys
 mkdir "$SSH_PATH"
@@ -69,6 +70,15 @@ else
     echo "Skipping PHP Linting."
 fi
 
+# Git push before sync
+if [ "${INPUT_WITH_GIT_PUSH^^}" == "TRUE" ]; then
+    echo "Begin Git push."
+    git remote -v | grep -w $WPE_ENV_NAME && \ git remote set-url $WPE_ENV_NAME $WPE_GIT_DESTINATION || \ git remote add $WPE_ENV_NAME $WPE_GIT_DESTINATION
+    git push $WPE_ENV_NAME $GITHUB_REF:main
+    echo "Git push Successful! No errors detected!"
+else 
+    echo "Skipping Git push."
+fi
 
 # Deploy via SSH
 # Exclude restricted paths from exclude.txt
