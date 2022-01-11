@@ -8,6 +8,7 @@ set -e
 SSH_PATH="$HOME/.ssh"
 KNOWN_HOSTS_PATH="$SSH_PATH/known_hosts"
 WPE_SSHG_KEY_PRIVATE_PATH="$SSH_PATH/wpe"
+SSH_AUTH_SOCK=/tmp/ssh_agent.sock
 
 
 ###
