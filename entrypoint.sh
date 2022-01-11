@@ -7,7 +7,7 @@ set -e
 #SSH Key Vars 
 SSH_PATH="$HOME/.ssh"
 KNOWN_HOSTS_PATH="$SSH_PATH/known_hosts"
-WPE_SSHG_KEY_PRIVATE_PATH="$SSH_PATH/github_action"
+WPE_SSHG_KEY_PRIVATE_PATH="$SSH_PATH/wpe"
 
 
 ###
@@ -81,6 +81,7 @@ fi
 # Git push before sync
 if [ "${INPUT_WITH_GIT_PUSH^^}" == "TRUE" ]; then
     git remote -v | grep -w $WPE_ENV_NAME && git remote set-url $WPE_ENV_NAME $WPE_GIT_DESTINATION || git remote add $WPE_ENV_NAME $WPE_GIT_DESTINATION
+    git remote -v
     echo "Begin Git push into $WPE_GIT_DESTINATION"
     echo "With env    : $WPE_ENV_NAME"
     echo "From branch : $GITHUB_REF"
