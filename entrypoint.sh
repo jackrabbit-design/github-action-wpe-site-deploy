@@ -53,14 +53,14 @@ ssh-keyscan -t rsa "$WPE_GIT_HOST" >> "$KNOWN_HOSTS_PATH"
 # Copy Secret Keys to container
 echo "$INPUT_WPE_SSHG_KEY_PRIVATE" > "$WPE_SSHG_KEY_PRIVATE_PATH"
 
-echo "Adding ssh agent ..."
-eval `ssh-agent -s`
-ssh-add $WPE_SSHG_KEY_PRIVATE_PATH
-
 #Set Key Perms 
 chmod 700 "$SSH_PATH"
 chmod 644 "$KNOWN_HOSTS_PATH"
 chmod 600 "$WPE_SSHG_KEY_PRIVATE_PATH"
+
+echo "Adding ssh agent ..."
+eval `ssh-agent -s`
+ssh-add $WPE_SSHG_KEY_PRIVATE_PATH
 
 # Lint before deploy
 if [ "${INPUT_PHP_LINT^^}" == "TRUE" ]; then
