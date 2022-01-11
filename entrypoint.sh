@@ -50,6 +50,7 @@ mkdir "$SSH_PATH"
 ssh-keyscan -t rsa "$WPE_SSH_HOST" >> "$KNOWN_HOSTS_PATH"
 ssh-keyscan -t rsa "$WPE_GIT_HOST" >> "$KNOWN_HOSTS_PATH"
 echo "Adding ssh agent ..."
+eval `ssh-agent -s`
 ssh-add $WPE_SSHG_KEY_PRIVATE_PATH
 
 #Copy Secret Keys to container
