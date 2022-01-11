@@ -57,3 +57,5 @@ wp-content/mysql.sql
 
 # Local specific
 wp-content/mu-plugins/local-by-flywheel-live-link-helper.php
+wp-content/themes/**/node_modules/
+node_modules/
