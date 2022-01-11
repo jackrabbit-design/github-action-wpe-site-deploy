@@ -84,13 +84,13 @@ fi
 
 # Git push before sync
 if [ "${INPUT_WITH_GIT_PUSH^^}" == "TRUE" ]; then
-    # git remote -v | grep -w $WPE_ENV_NAME && git remote set-url $WPE_ENV_NAME $WPE_GIT_DESTINATION || git remote add $WPE_ENV_NAME $WPE_GIT_DESTINATION
-    # git remote -v
-    # echo "Begin Git push into $WPE_GIT_DESTINATION"
-    # echo "With env    : $WPE_ENV_NAME"
-    # echo "From branch : $GITHUB_REF"
-    # git push $WPE_ENV_NAME $GITHUB_REF:master
-    ssh -v -p 22 -i ${WPE_SSHG_KEY_PRIVATE_PATH} -o StrictHostKeyChecking=no $WPE_SSH_USER "cd sites/${WPE_ENV_NAME} && git fetch && git merge '@{u}'"
+    git config core.sshCommand "ssh -i $WPE_SSHG_KEY_PRIVATE_PATH -o UserKnownHostsFile=$KNOWN_HOSTS_PATH"
+    git remote -v | grep -w $WPE_ENV_NAME && git remote set-url $WPE_ENV_NAME $WPE_GIT_DESTINATION || git remote add $WPE_ENV_NAME $WPE_GIT_DESTINATION
+    git remote -v
+    echo "Begin Git push into $WPE_GIT_DESTINATION"
+    echo "With env    : $WPE_ENV_NAME"
+    echo "From branch : $GITHUB_REF"
+    git push $WPE_ENV_NAME $GITHUB_REF:master
     echo "Git push Successful! No errors detected!"
 else 
     echo "Skipping Git push."
