@@ -8,7 +8,6 @@ set -e
 SSH_PATH="$HOME/.ssh"
 KNOWN_HOSTS_PATH="$SSH_PATH/known_hosts"
 WPE_SSHG_KEY_PRIVATE_PATH="$SSH_PATH/wpe"
-SSH_AUTH_SOCK=/tmp/ssh_agent.sock
 
 
 ###
@@ -61,7 +60,6 @@ chmod 600 "$WPE_SSHG_KEY_PRIVATE_PATH"
 
 echo "Adding ssh agent ..."
 eval `ssh-agent -s`
-ssh-agent -a $SSH_AUTH_SOCK > /dev/null
 ssh-add $WPE_SSHG_KEY_PRIVATE_PATH
 ssh-add -l
 
@@ -86,12 +84,13 @@ fi
 
 # Git push before sync
 if [ "${INPUT_WITH_GIT_PUSH^^}" == "TRUE" ]; then
-    git remote -v | grep -w $WPE_ENV_NAME && git remote set-url $WPE_ENV_NAME $WPE_GIT_DESTINATION || git remote add $WPE_ENV_NAME $WPE_GIT_DESTINATION
-    git remote -v
-    echo "Begin Git push into $WPE_GIT_DESTINATION"
-    echo "With env    : $WPE_ENV_NAME"
-    echo "From branch : $GITHUB_REF"
-    git push $WPE_ENV_NAME $GITHUB_REF:master
+    # git remote -v | grep -w $WPE_ENV_NAME && git remote set-url $WPE_ENV_NAME $WPE_GIT_DESTINATION || git remote add $WPE_ENV_NAME $WPE_GIT_DESTINATION
+    # git remote -v
+    # echo "Begin Git push into $WPE_GIT_DESTINATION"
+    # echo "With env    : $WPE_ENV_NAME"
+    # echo "From branch : $GITHUB_REF"
+    # git push $WPE_ENV_NAME $GITHUB_REF:master
+    ssh -v -p 22 -i ${WPE_SSHG_KEY_PRIVATE_PATH} -o StrictHostKeyChecking=no $WPE_SSH_USER "cd sites/${WPE_ENV_NAME} && git fetch && git merge '@{u}'"
     echo "Git push Successful! No errors detected!"
 else 
     echo "Skipping Git push."
