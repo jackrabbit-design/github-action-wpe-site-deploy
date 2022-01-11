@@ -35,6 +35,7 @@ echo "Deploying $GITHUB_REF to $WPE_ENV_NAME..."
 
 #Deploy Vars
 WPE_SSH_HOST="$WPE_ENV_NAME.ssh.wpengine.net"
+WPE_GIT_HOST="git.wpengine.com"
 DIR_PATH="$INPUT_TPO_PATH"
 SRC_PATH="$INPUT_TPO_SRC_PATH"
  
@@ -47,6 +48,7 @@ WPE_GIT_DESTINATION="git@git.wpengine.com:production/$WPE_ENV_NAME.git"
 # Setup our SSH Connection & use keys
 mkdir "$SSH_PATH"
 ssh-keyscan -t rsa "$WPE_SSH_HOST" >> "$KNOWN_HOSTS_PATH"
+ssh-keyscan -t rsa "$WPE_GIT_HOST" >> "$KNOWN_HOSTS_PATH"
 
 #Copy Secret Keys to container
 echo "$INPUT_WPE_SSHG_KEY_PRIVATE" > "$WPE_SSHG_KEY_PRIVATE_PATH"
@@ -74,8 +76,8 @@ fi
 if [ "${INPUT_WITH_GIT_PUSH^^}" == "TRUE" ]; then
     git remote -v | grep -w $WPE_ENV_NAME && git remote set-url $WPE_ENV_NAME $WPE_GIT_DESTINATION || git remote add $WPE_ENV_NAME $WPE_GIT_DESTINATION
     echo "Begin Git push into $WPE_GIT_DESTINATION"
-    echo "With env   : $WPE_ENV_NAME"
-    echo "Into branch: $GITHUB_REF"
+    echo "With env    : $WPE_ENV_NAME"
+    echo "From branch : $GITHUB_REF"
     git push $WPE_ENV_NAME $GITHUB_REF:main
     echo "Git push Successful! No errors detected!"
 else 
