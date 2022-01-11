@@ -85,6 +85,7 @@ fi
 
 # Git push before sync
 if [ "${INPUT_WITH_GIT_PUSH^^}" == "TRUE" ]; then
+    git fetch --unshallow
     git config core.sshCommand "ssh -i $WPE_SSHG_KEY_PRIVATE_PATH -o UserKnownHostsFile=$KNOWN_HOSTS_PATH"
     git remote -v | grep -w $WPE_ENV_NAME && git remote set-url $WPE_ENV_NAME $WPE_GIT_DESTINATION || git remote add $WPE_ENV_NAME $WPE_GIT_DESTINATION
     git remote -v
