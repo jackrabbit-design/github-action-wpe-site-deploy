@@ -90,7 +90,7 @@ if [ "${INPUT_WITH_GIT_PUSH^^}" == "TRUE" ]; then
     echo "Begin Git push into $WPE_GIT_DESTINATION"
     echo "With env    : $WPE_ENV_NAME"
     echo "From branch : $GITHUB_REF"
-    git push $WPE_ENV_NAME $GITHUB_REF:master
+    git push $WPE_ENV_NAME $GITHUB_REF:master --force
     echo "Git push Successful! No errors detected!"
 else 
     echo "Skipping Git push."
