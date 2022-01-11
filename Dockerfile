@@ -5,7 +5,7 @@ LABEL "com.github.actions.icon"="upload-cloud"
 LABEL "com.github.actions.color"="blue"
 LABEL "repository"="http://github.com/wpengine/github-action-wpe-site-deploy"
 LABEL "maintainer"="Alex Zuniga <alex.zuniga@wpengine.com>"
-RUN apk add bash php
+RUN apk add bash php git
 ADD entrypoint.sh /entrypoint.sh
 ADD exclude.txt /exclude.txt
 ENTRYPOINT ["/entrypoint.sh"]
