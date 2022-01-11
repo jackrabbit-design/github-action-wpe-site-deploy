@@ -49,6 +49,8 @@ WPE_GIT_DESTINATION="git@git.wpengine.com:production/$WPE_ENV_NAME.git"
 mkdir "$SSH_PATH"
 ssh-keyscan -t rsa "$WPE_SSH_HOST" >> "$KNOWN_HOSTS_PATH"
 ssh-keyscan -t rsa "$WPE_GIT_HOST" >> "$KNOWN_HOSTS_PATH"
+ssh-agent -a /tmp/ssh_agent.sock
+ssh-add $WPE_SSHG_KEY_PRIVATE_PATH
 
 #Copy Secret Keys to container
 echo "$INPUT_WPE_SSHG_KEY_PRIVATE" > "$WPE_SSHG_KEY_PRIVATE_PATH"
