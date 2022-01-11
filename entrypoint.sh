@@ -72,8 +72,10 @@ fi
 
 # Git push before sync
 if [ "${INPUT_WITH_GIT_PUSH^^}" == "TRUE" ]; then
-    echo "Begin Git push."
     git remote -v | grep -w $WPE_ENV_NAME && git remote set-url $WPE_ENV_NAME $WPE_GIT_DESTINATION || git remote add $WPE_ENV_NAME $WPE_GIT_DESTINATION
+    echo "Begin Git push into $WPE_GIT_DESTINATION"
+    echo "With env   : $WPE_ENV_NAME"
+    echo "Into branch: $GITHUB_REF"
     git push $WPE_ENV_NAME $GITHUB_REF:main
     echo "Git push Successful! No errors detected!"
 else 
