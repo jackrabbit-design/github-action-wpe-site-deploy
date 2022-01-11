@@ -60,12 +60,13 @@ chmod 600 "$WPE_SSHG_KEY_PRIVATE_PATH"
 
 echo "Adding ssh agent ..."
 eval `ssh-agent -s`
+ssh-agent -a $SSH_AUTH_SOCK > /dev/null
 ssh-add $WPE_SSHG_KEY_PRIVATE_PATH
 ssh-add -l
 
-echo "logging ..."
-ssh git@git.wpengine.com info
-echo "--------------------------"
+# echo "logging ..."
+# ssh git@git.wpengine.com info
+# echo "--------------------------"
 
 # Lint before deploy
 if [ "${INPUT_PHP_LINT^^}" == "TRUE" ]; then
