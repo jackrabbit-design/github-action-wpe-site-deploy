@@ -61,6 +61,7 @@ chmod 600 "$WPE_SSHG_KEY_PRIVATE_PATH"
 echo "Adding ssh agent ..."
 eval `ssh-agent -s`
 ssh-add $WPE_SSHG_KEY_PRIVATE_PATH
+ssh-add -l
 
 # Lint before deploy
 if [ "${INPUT_PHP_LINT^^}" == "TRUE" ]; then
