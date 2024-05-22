@@ -7,11 +7,7 @@ inputs:
   WPE_SSHG_KEY_PRIVATE:
     description: "The private RSA key you will save in the Github Secrets"
     required: true
-  PHP_LINT:
-    description: "optional php syntax check"
-    required: false
-    default: false
-  FLAGS: 
+  FLAGS:
     description: "Optional flags for the deployment"
     required: true
     default: '-azvr --inplace --exclude=".*"'
@@ -27,7 +23,7 @@ inputs:
     description: "An optional destination directory to deploy to other than the WordPress root."
     default: ""
     required: false
-  PRD_BRANCH: 
+  PRD_BRANCH:
     description: "Source branch to deploy PRD_ENV"
     required: true
     default: "PROD_BRANCH_HERE"
@@ -35,7 +31,7 @@ inputs:
     description: "Destination to deploy to WPE Prod"
     required: true
     default: "PROD_ENV_HERE"
-  STG_BRANCH: 
+  STG_BRANCH:
     description: "Source branch to deploy STG_ENV"
     required: false
     default: "STAGE_BRANCH_HERE"
@@ -43,7 +39,7 @@ inputs:
     description: "Destination to deploy to WPE Stage"
     required: false
     default: "STAGE_ENV_HERE"
-  DEV_BRANCH: 
+  DEV_BRANCH:
     description: "Source branch to deploy DEV_ENV"
     required: false
     default: "DEV_BRANCH_HERE"
@@ -51,10 +47,10 @@ inputs:
     description: "Destination to deploy to WPE Dev"
     required: false
     default: "DEV_ENV_HERE"
-  WITH_GIT_PUSH:
-    description: "Optional git push into WPE"
-    required: false
-    default: false
+  ACF_PATH:
+    description: "Path to ACF-JSON output"
+    required: true
+    default: ""
 
 runs:
   using: "docker"
